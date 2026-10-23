@@ -207,17 +207,17 @@ function PostEditor({ initial }: { initial: Post | null }) {
   return (
     <div className="flex flex-col">
       {/* Action bar */}
-      <div className="sticky top-0 z-20 flex items-center gap-3 border-b border-line bg-page/95 px-[var(--page-pad)] py-2.5 backdrop-blur">
+      <div className="sticky top-0 z-20 flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-line bg-page/95 px-[var(--page-pad)] py-2.5 backdrop-blur">
         <GuardedLink href="/posts" className="flex items-center gap-1.5 text-[12px] font-semibold text-secondary hover:text-ink">
           <ArrowLeft size={14} aria-hidden /> Posts
         </GuardedLink>
         <span aria-hidden className="h-4 w-px bg-line" />
         <PostStatusChip status={status} />
-        <span className={dirty ? "text-[12px] font-semibold text-warning" : "text-[12px] text-muted"} aria-live="polite">
+        <span className={dirty ? "text-[12px] font-semibold whitespace-nowrap text-warning" : "text-[12px] whitespace-nowrap text-muted"} aria-live="polite">
           {saveState}
         </span>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2">
           {status === "PUBLISHED" ? (
             <button type="button" className="btn btn-primary" onClick={() => void save()} disabled={locked || (!dirty && Boolean(post))}>
               {busy === "save" && <Spinner size={12} />}
