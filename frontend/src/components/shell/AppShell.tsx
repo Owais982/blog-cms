@@ -19,9 +19,22 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <ToastProvider>
       <NavigationGuardProvider>
         <div className="flex h-screen overflow-hidden">
-          <Sidebar collapsed={collapsed} />
+          {!collapsed && (
+            <button
+              type="button"
+              aria-label="Close sidebar"
+              onClick={() => setCollapsed(true)}
+              className="fixed inset-0 z-30 cursor-pointer bg-black/30 md:hidden"
+            />
+          )}
+          <div className="relative w-[var(--shell-sidebar-w-collapsed)] shrink-0 md:w-auto">
+            <Sidebar collapsed={collapsed} />
+          </div>
           <main className="flex min-w-0 flex-1 flex-col overflow-hidden">
-            <TopBar breadcrumb={resolveBreadcrumb(pathname)} onToggleSidebar={() => setCollapsed((c) => !c)} />
+            <TopBar
+              breadcrumb={resolveBreadcrumb(pathname)}
+              onToggleSidebar={() => setCollapsed((c) => !c)}
+            />
             <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
           </main>
         </div>

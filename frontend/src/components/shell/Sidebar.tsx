@@ -32,8 +32,11 @@ export function Sidebar({ collapsed }: { collapsed: boolean }) {
 
   return (
     <aside
-      className="flex h-full shrink-0 flex-col overflow-hidden border-r-[1.5px] border-line bg-page transition-[width] duration-200"
-      style={{ width: collapsed ? "var(--shell-sidebar-w-collapsed)" : "var(--shell-sidebar-w)" }}
+      className={cn(
+        "absolute inset-y-0 left-0 z-40 flex h-full shrink-0 flex-col overflow-hidden border-r-[1.5px] border-line bg-page transition-[width] duration-200 md:static",
+        !collapsed && "shadow-popover md:shadow-none",
+      )}
+    style={{ width: collapsed ? "var(--shell-sidebar-w-collapsed)" : "var(--shell-sidebar-w)" }}
     >
       <div
         className={cn(
