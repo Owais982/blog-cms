@@ -122,10 +122,10 @@ export function PostsListCanvas() {
       render: (post) => (
         <div className="flex min-w-0 items-center gap-3">
           {post.coverImage ? (
-            <img src={post.coverImage.url} alt="" className="h-9 w-14 shrink-0 rounded-sm border border-line object-cover" />
+            <img src={post.coverImage.url} alt="" className="hidden h-9 w-14 shrink-0 rounded-sm border border-line object-cover sm:block" />
           ) : (
-            <span className="flex h-9 w-14 shrink-0 items-center justify-center rounded-sm border border-dashed border-line text-[var(--atomity-gray-400)]">
-              <FileText size={14} aria-hidden />
+<span className="hidden h-9 w-14 shrink-0 items-center justify-center rounded-sm border border-dashed border-line text-[var(--atomity-gray-400)] sm:flex">
+            <FileText size={14} aria-hidden />
             </span>
           )}
           <div className="min-w-0">
@@ -141,11 +141,12 @@ export function PostsListCanvas() {
       ),
     },
     { key: "status", header: "Status", width: "112px", render: (post) => <PostStatusChip status={post.status} /> },
-    { key: "authors", header: "Authors", width: "104px", render: (post) => <AvatarStack people={post.authors} /> },
+    { key: "authors", header: "Authors", width: "104px", hideBelow: "sm", render: (post) => <AvatarStack people={post.authors} /> },
     {
       key: "tags",
       header: "Tags",
       width: "200px",
+      hideBelow: "xl",
       render: (post) =>
         post.tags.length === 0 ? (
           <span className="text-muted">—</span>
@@ -164,6 +165,7 @@ export function PostsListCanvas() {
       key: "updatedAt",
       header: "Updated",
       width: "116px",
+      hideBelow: "lg",
       sortable: true,
       render: (post) => (
         <span title={formatDateTime(post.updatedAt)} className="text-secondary">
@@ -175,6 +177,7 @@ export function PostsListCanvas() {
       key: "wordCount",
       header: "Words",
       width: "80px",
+      hideBelow: "xl",
       align: "right",
       sortable: true,
       render: (post) => <span className="font-mono text-[11.5px] tabular-nums">{post.wordCount.toLocaleString()}</span>,

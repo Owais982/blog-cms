@@ -6,6 +6,8 @@ export interface DataTableColumn<T> {
   align?: "left" | "right" | "center";
   /** CSS width for the column, e.g. "120px" or "40%". */
   width?: string;
+  /** Hides the column below this breakpoint so narrow screens keep room for the rest. */
+  hideBelow?: "sm" | "md" | "lg" | "xl";
   /** Makes the header a sort control; needs `sort` and `onSortChange` on the table. */
   sortable?: boolean;
   className?: string;
@@ -31,6 +33,20 @@ export interface DataTableProps<T> {
   caption: string;
 }
 
+// Full class names so Tailwind can see them at build time.
+const HIDE_COL = {
+  sm: "hidden sm:table-column",
+  md: "hidden md:table-column",
+  lg: "hidden lg:table-column",
+  xl: "hidden xl:table-column",
+} as const;
+const HIDE_CELL = {
+  sm: "hidden sm:table-cell",
+  md: "hidden md:table-cell",
+  lg: "hidden lg:table-cell",
+  xl: "hidden xl:table-cell",
+} as const;
+
 /**
  * Plain table with the dashboard's row rhythm (after atomity-product's DataTable).
  * Clickable rows are also reachable by keyboard: Enter opens them.
@@ -51,7 +67,7 @@ export function DataTable<T>({
       <caption className="sr-only">{caption}</caption>
       <colgroup>
         {columns.map((c) => (
-          <col key={c.key} style={{ width: c.width }} />
+          <col key={c.key} style={{ width: c.width }} className={c.hideBelow ? HIDE_COL[c.hideBelow] : undefined} />
         ))}
       </colgroup>
       <thead>
@@ -67,6 +83,7 @@ export function DataTable<T>({
                 className={cn(
                   "border-b border-line px-3 py-2 text-[11.5px] font-bold whitespace-nowrap text-muted",
                   c.align === "right" ? "text-right" : c.align === "center" ? "text-center" : "text-left",
+                  c.hideBelow && HIDE_CELL[c.hideBelow],
                 )}
               >
                 {sortable ? (
@@ -93,7 +110,7 @@ export function DataTable<T>({
           ? Array.from({ length: skeletonRows }, (_, i) => (
               <tr key={`skeleton-${i}`}>
                 {columns.map((c) => (
-                  <td key={c.key} className="border-b border-line px-3 py-3">
+                  <td key={c.key} className={cn("border-b border-line px-3 py-3", c.hideBelow && HIDE_CELL[c.hideBelow])}>
                     <div className="skeleton h-3.5 w-3/4" />
                   </td>
                 ))}
@@ -123,6 +140,7 @@ export function DataTable<T>({
                     className={cn(
                       "border-b border-line px-3 py-2.5 align-middle text-[12.5px]",
                       c.align === "right" ? "text-right" : c.align === "center" ? "text-center" : "text-left",
+                      c.hideBelow && HIDE_CELL[c.hideBelow],
                       c.className,
                     )}
                   >

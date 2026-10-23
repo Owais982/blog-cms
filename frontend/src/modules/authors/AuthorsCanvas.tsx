@@ -42,6 +42,8 @@ export function AuthorsCanvas() {
           <div className="min-w-0">
             <div className="truncate font-semibold">{author.name}</div>
             <div className="truncate font-mono text-[11px] text-muted">{author.slug}</div>
+            {author.bio && <div className="mt-0.5 line-clamp-2 break-words text-[11.5px] text-secondary md:hidden">{author.bio}</div>}
+            <div className="text-[11px] text-muted sm:hidden">Added {formatDate(author.createdAt)}</div>
           </div>
         </div>
       ),
@@ -49,6 +51,7 @@ export function AuthorsCanvas() {
     {
       key: "bio",
       header: "Bio",
+      hideBelow: "md",
       render: (author) => <span className="line-clamp-2 text-secondary">{author.bio || <span className="text-muted">—</span>}</span>,
     },
     {
@@ -58,7 +61,7 @@ export function AuthorsCanvas() {
       align: "right",
       render: (author) => <span className="font-mono text-[11.5px] tabular-nums">{author.postCount}</span>,
     },
-    { key: "created", header: "Added", width: "120px", render: (author) => <span className="text-secondary">{formatDate(author.createdAt)}</span> },
+    { key: "created", header: "Added", width: "120px", hideBelow: "sm", render: (author) => <span className="text-secondary">{formatDate(author.createdAt)}</span> },
     {
       key: "actions",
       header: <span className="sr-only">Actions</span>,

@@ -35,12 +35,23 @@ export function TagsCanvas() {
       key: "name",
       header: "Name",
       render: (tag) => (
-        <StatusChip tone="neutral" className="!text-[11px] !normal-case !tracking-normal">
-          {tag.name}
+        <StatusChip tone="neutral" className="max-w-full !text-[11px] !normal-case !tracking-normal">
+          <span className="block truncate" title={tag.name}>
+            {tag.name}
+          </span>
         </StatusChip>
       ),
     },
-    { key: "slug", header: "Slug", render: (tag) => <span className="font-mono text-[11.5px] text-secondary">{tag.slug}</span> },
+    {
+      key: "slug",
+      header: "Slug",
+      hideBelow: "md",
+      render: (tag) => (
+        <span className="block truncate font-mono text-[11.5px] text-secondary" title={tag.slug}>
+          {tag.slug}
+        </span>
+      ),
+    },
     {
       key: "posts",
       header: "Posts",
@@ -48,7 +59,7 @@ export function TagsCanvas() {
       align: "right",
       render: (tag) => <span className="font-mono text-[11.5px] tabular-nums">{tag.postCount}</span>,
     },
-    { key: "created", header: "Added", width: "120px", render: (tag) => <span className="text-secondary">{formatDate(tag.createdAt)}</span> },
+    { key: "created", header: "Added", width: "120px", hideBelow: "lg", render: (tag) => <span className="text-secondary">{formatDate(tag.createdAt)}</span> },
     {
       key: "actions",
       header: <span className="sr-only">Actions</span>,
