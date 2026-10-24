@@ -217,7 +217,7 @@ function PostEditor({ initial }: { initial: Post | null }) {
           {saveState}
         </span>
 
-        <div className="ml-auto flex shrink-0 items-center gap-2">
+        <div className="ml-auto flex max-w-full flex-wrap items-center justify-end gap-2">
           {status === "PUBLISHED" ? (
             <button type="button" className="btn btn-primary" onClick={() => void save()} disabled={locked || (!dirty && Boolean(post))}>
               {busy === "save" && <Spinner size={12} />}

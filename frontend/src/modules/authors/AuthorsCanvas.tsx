@@ -43,7 +43,8 @@ export function AuthorsCanvas() {
             <div className="truncate font-semibold">{author.name}</div>
             <div className="truncate font-mono text-[11px] text-muted">{author.slug}</div>
             {author.bio && <div className="mt-0.5 line-clamp-2 break-words text-[11.5px] text-secondary md:hidden">{author.bio}</div>}
-            <div className="text-[11px] text-muted sm:hidden">Added {formatDate(author.createdAt)}</div>
+           <div className="text-[11px] text-muted sm:hidden">{pluralize(author.postCount, "post")} · Added {formatDate(author.createdAt)}
+           </div>
           </div>
         </div>
       ),
@@ -58,6 +59,7 @@ export function AuthorsCanvas() {
       key: "posts",
       header: "Posts",
       width: "90px",
+      hideBelow: "sm",
       align: "right",
       render: (author) => <span className="font-mono text-[11.5px] tabular-nums">{author.postCount}</span>,
     },

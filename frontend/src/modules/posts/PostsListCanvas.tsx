@@ -136,11 +136,13 @@ export function PostsListCanvas() {
               {post.featured && <Star size={12} className="shrink-0 fill-[var(--atomity-orange)] text-[var(--atomity-orange)]" aria-label="Featured" />}
             </div>
             <div className="truncate font-mono text-[11px] text-muted">/{post.slug}</div>
+            <div className="mt-1 sm:hidden"><PostStatusChip status={post.status} />
+            </div>
           </div>
         </div>
       ),
     },
-    { key: "status", header: "Status", width: "112px", render: (post) => <PostStatusChip status={post.status} /> },
+    { key: "status", header: "Status", width: "112px", hideBelow: "sm", render: (post) => <PostStatusChip status={post.status} /> },
     { key: "authors", header: "Authors", width: "104px", hideBelow: "sm", render: (post) => <AvatarStack people={post.authors} /> },
     {
       key: "tags",
